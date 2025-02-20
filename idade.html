@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de Idade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Verificação de Idade</h1>
+        <p>Digite sua idade e clique no botão para verificar:</p>
+        <input type="number" id="userAge" placeholder="Digite sua idade...">
+        <button onclick="checkAge()">Verificar</button>
+    </div>
+
+    <script>
+        function checkAge() {
+            const age = document.getElementById('userAge').value;
+            if (age) {
+                const msg = new SpeechSynthesisUtterance();
+                if (age >= 18) {
+                    msg.text = 'Você é maior de idade.';
+                } else {
+                    msg.text = 'Você é menor de idade.';
+                }
+                msg.lang = 'pt-BR';
+                msg.voice = speechSynthesis.getVoices().find(voice => voice.name.includes('Google') && voice.lang === 'pt-BR');
+                speechSynthesis.speak(msg);
+            } else {
+                alert('Por favor, digite sua idade.');
+            }
+        }
+    </script>
+</body>
+</html>
